@@ -1,0 +1,47 @@
+---
+version: "2.3"
+services:
+  adguardhome1:
+    image: adguard/adguardhome
+    container_name: adguardhome1
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 67:67/tcp
+      - 68:68/tcp
+      - 68:68/udp
+      - 443:443/tcp
+      - 853:853/tcp
+      - 3000:80/tcp
+    volumes:
+      - /home/fabio/AdGuard/guard1/workdir:/opt/adguardhome/work
+      - /home/fabio/AdGuard/guard1/confdir:/opt/adguardhome/conf
+    restart: unless-stopped
+    networks:
+      macnet:
+        ipv4_address: 192.168.1.200
+  adguardhome2:
+    image: adguard/adguardhome
+    container_name: adguardhome2
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 67:67/tcp
+      - 68:68/tcp
+      - 68:68/udp
+      - 443:443/tcp
+      - 853:853/tcp
+      - 3000:80/tcp
+    volumes:
+      - /home/fabio/AdGuard/guard2/workdir:/opt/adguardhome/work
+      - /home/fabio/AdGuard/guard2/confdir:/opt/adguardhome/conf
+    restart: unless-stopped
+    networks:
+      macnet:
+        ipv4_address: 192.168.1.201
+networks:
+  macnet:
+    external:
+      name: mac_net
